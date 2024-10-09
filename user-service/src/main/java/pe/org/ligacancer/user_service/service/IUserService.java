@@ -1,7 +1,9 @@
 package pe.org.ligacancer.user_service.service;
 
+import org.springframework.stereotype.Service;
 import pe.org.ligacancer.user_service.model.User;
 
+@Service
 public interface IUserService {
     void registerPatient(
             String email,

@@ -2,18 +2,20 @@ package pe.org.ligacancer.user_service.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pe.org.ligacancer.user_service.client.PatientClient;
+import pe.org.ligacancer.user_service.dto.PatientCreateDTO;
 import pe.org.ligacancer.user_service.dto.PatientDTO;
 import pe.org.ligacancer.user_service.model.User;
 import pe.org.ligacancer.user_service.repository.UserRepository;
 
 import java.util.Date;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class UserService implements IUserService {
 
     private final UserRepository userRepository;
+    private final PatientClient patientClient;
 
     @Override
     public void registerPatient(
@@ -25,21 +27,20 @@ public class UserService implements IUserService {
             String phone,
             String dni
     ) {
-        // TODO: Implement the save patient client
-        var patient = PatientDTO.builder()
+        PatientDTO patient = patientClient.savePatient(PatientCreateDTO.builder()
                 .name(name)
                 .lastName(lastName)
                 .address(address)
                 .phone(phone)
                 .dni(dni)
-                .build();
+                .build());
         userRepository.save(
                 User.builder()
                         .email(email)
                         .password(password)
                         .role("patient")
                         .state("active")
-//                        .idPatient(patient.getId())
+                        .idPatient(patient.getId())
                         .creationDate(new Date())
                         .lastLogin(new Date())
                         .build()
