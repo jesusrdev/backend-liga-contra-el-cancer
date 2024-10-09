@@ -15,11 +15,31 @@ spring:
     gateway:
       mvc:
         routes:
-#          - id: students
-#            uri: http://localhost:8090
-#            predicates:
-#              - Path=/api/v1/students/**
-#          - id: schools
-#            uri: http://localhost:8070
-#            predicates:
-#              - Path=/api/v1/schools/**
+          - id: users
+            uri: http://localhost:8090
+            predicates:
+              - Path=/api/v1/users/**
+          - id: patients
+            uri: http://localhost:8091
+            predicates:
+              - Path=/api/v1/patients/**
+          - id: patient-calendar
+            uri: http://localhost:8092
+            predicates:
+              - Path=/api/v1/patient-calendar/**
+          - id: appointments
+            uri: http://localhost:8093
+            predicates:
+              - Path=/api/v1/appointments/**
+          - id: doctors
+            uri: http://localhost:8094
+            predicates:
+              - Path=/api/v1/doctors/**
+          - id: doctor-calendar
+            uri: http://localhost:8095
+            predicates:
+              - Path=/api/v1/doctor-calendar/**
+          - id: specialties
+            uri: http://localhost:8096
+            predicates:
+              - Path=/api/v1/specialties/**
