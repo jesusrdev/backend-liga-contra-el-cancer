@@ -21,7 +21,7 @@ public interface IUserService {
             String name,
             String lastName,
             String address,
-            String specialty,
+            int idSpecialty,
             String phone,
             String dni
     );

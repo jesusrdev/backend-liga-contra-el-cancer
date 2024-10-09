@@ -24,3 +24,4 @@ spring:
 application:
   config:
     patient-service-url: http://localhost:8080/api/patients
+    doctor-service-url: http://localhost:8080/api/doctors

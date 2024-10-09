@@ -43,26 +43,33 @@ public class UserController {
     }
 
     @PostMapping("/register-doctor")
-    public void registerDoctor(
-            @RequestBody String email,
-            @RequestBody String password,
-            @RequestBody String name,
-            @RequestBody String lastName,
-            @RequestBody String address,
-            @RequestBody String specialty,
-            @RequestBody String phone,
-            @RequestBody String dni
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Object> registerDoctor(
+            @RequestParam String email,
+            @RequestParam String password,
+            @RequestParam String name,
+            @RequestParam String address,
+            @RequestParam String lastName,
+            @RequestParam int idSpecialty,
+            @RequestParam String phone,
+            @RequestParam String dni
     ) {
-        userService.registerDoctor(
-                email,
-                password,
-                name,
-                lastName,
-                address,
-                specialty,
-                phone,
-                dni
-        );
+        try {
+            userService.registerDoctor(
+                    email,
+                    password,
+                    name,
+                    lastName,
+                    address,
+                    idSpecialty,
+                    phone,
+                    dni
+            );
+
+            return ResponseEntity.ok("Doctor created successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @GetMapping
