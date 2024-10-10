@@ -40,4 +40,10 @@ public class DoctorController {
     ) {
         return ResponseEntity.ok(doctorService.findDoctorById(id, method));
     }
+
+    @GetMapping("/search-by-specialty/{idSpecialty}")
+    public ResponseEntity<?> findAllBySpecialtyId(@PathVariable int idSpecialty){
+        return ResponseEntity.ok(doctorService.findAllBySpecialtyId(idSpecialty));
+    }
+
 }

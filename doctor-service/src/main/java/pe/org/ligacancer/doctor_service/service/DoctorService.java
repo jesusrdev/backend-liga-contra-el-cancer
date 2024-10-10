@@ -9,6 +9,7 @@ import pe.org.ligacancer.doctor_service.model.Doctor;
 import pe.org.ligacancer.doctor_service.repository.DoctorRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -75,4 +76,11 @@ public class DoctorService implements IDoctorService {
         }
         return doctor;
     }
+
+    @Override
+    public List<Doctor> findAllBySpecialtyId(int id) {
+        return doctorRepository.findAllDoctor(id);
+    }
+
+
 }
