@@ -2,9 +2,12 @@ package pe.org.ligacancer.doctor_service.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pe.org.ligacancer.doctor_service.client.DoctorCalendarClient;
 import pe.org.ligacancer.doctor_service.client.SpecialtyClient;
+import pe.org.ligacancer.doctor_service.dto.DoctorCalendarDTO;
 import pe.org.ligacancer.doctor_service.dto.DoctorCreateDTO;
 import pe.org.ligacancer.doctor_service.dto.SpecialtyDTO;
+import pe.org.ligacancer.doctor_service.http.response.CalendarByDoctorResponse;
 import pe.org.ligacancer.doctor_service.http.response.DoctorDetailed;
 import pe.org.ligacancer.doctor_service.model.Doctor;
 import pe.org.ligacancer.doctor_service.repository.DoctorRepository;
@@ -18,6 +21,7 @@ public class DoctorService implements IDoctorService {
 
     public final DoctorRepository doctorRepository;
     public final SpecialtyClient specialtyClient;
+    private final DoctorCalendarClient doctorCalendarClient;
 
     @Override
     public Doctor saveDoctor(DoctorCreateDTO doctorCreateDTO) {
@@ -79,6 +83,25 @@ public class DoctorService implements IDoctorService {
     @Override
     public List<Doctor> findAllBySpecialtyId(int id) {
         return doctorRepository.findAllDoctor(id);
+    }
+
+    @Override
+    public CalendarByDoctorResponse findAllCalendarByDoctor(int idDoctor) {
+
+        Doctor doctor = doctorRepository.findById(idDoctor).orElse(new Doctor());
+
+        List<DoctorCalendarDTO> calendars = doctorCalendarClient.findAllCalendarByDoctor(idDoctor);
+
+        return CalendarByDoctorResponse.builder()
+                .name(doctor.getName())
+                .lastName(doctor.getLastName())
+                .address(doctor.getAddress())
+                .idSpecialty(doctor.getIdSpecialty())
+                .phone(doctor.getPhone())
+                .dni(doctor.getDni())
+                .calendars(calendars)
+                .build();
+
     }
 
 
