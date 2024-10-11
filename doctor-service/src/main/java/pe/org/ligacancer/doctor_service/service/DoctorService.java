@@ -1,13 +1,10 @@
 package pe.org.ligacancer.doctor_service.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pe.org.ligacancer.doctor_service.client.DoctorCalendarClient;
-import pe.org.ligacancer.doctor_service.dto.DoctorCalendarDTO;
+import pe.org.ligacancer.doctor_service.client.SpecialtyClient;
 import pe.org.ligacancer.doctor_service.dto.DoctorCreateDTO;
 import pe.org.ligacancer.doctor_service.dto.SpecialtyDTO;
-import pe.org.ligacancer.doctor_service.http.response.CalendarByDoctorResponse;
 import pe.org.ligacancer.doctor_service.http.response.DoctorDetailed;
 import pe.org.ligacancer.doctor_service.model.Doctor;
 import pe.org.ligacancer.doctor_service.repository.DoctorRepository;
@@ -20,9 +17,7 @@ import java.util.List;
 public class DoctorService implements IDoctorService {
 
     public final DoctorRepository doctorRepository;
-
-    @Autowired
-    private final DoctorCalendarClient doctorCalendarClient;
+    public final SpecialtyClient specialtyClient;
 
     @Override
     public Doctor saveDoctor(DoctorCreateDTO doctorCreateDTO) {
@@ -43,10 +38,7 @@ public class DoctorService implements IDoctorService {
             var listDoctors = new ArrayList<DoctorDetailed>();
             for (var doctor : doctors) {
                 // TODO: Implement the specialty client
-                var specialty = SpecialtyDTO.builder()
-                        .id(doctor.getIdSpecialty())
-                        .description("specialty")
-                        .build();
+                var specialty = specialtyClient.findSpecialtyById(doctor.getIdSpecialty());
                 listDoctors.add(DoctorDetailed.builder()
                         .id(doctor.getId())
                         .name(doctor.getName())
@@ -89,23 +81,5 @@ public class DoctorService implements IDoctorService {
         return doctorRepository.findAllDoctor(id);
     }
 
-    @Override
-    public CalendarByDoctorResponse findAllCalendarByDoctor(int idDoctor) {
-
-        Doctor doctor = doctorRepository.findById(idDoctor).orElse(new Doctor());
-
-        List<DoctorCalendarDTO> calendars = doctorCalendarClient.findAllCalendarByDoctor(idDoctor);
-
-        return CalendarByDoctorResponse.builder()
-                .name(doctor.getName())
-                .lastName(doctor.getLastName())
-                .address(doctor.getAddress())
-                .idSpecialty(doctor.getIdSpecialty())
-                .phone(doctor.getPhone())
-                .dni(doctor.getDni())
-                .calendars(calendars)
-                .build();
-
-    }
 
 }

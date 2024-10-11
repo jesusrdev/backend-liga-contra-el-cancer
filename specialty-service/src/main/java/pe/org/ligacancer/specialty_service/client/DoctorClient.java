@@ -8,7 +8,7 @@ import pe.org.ligacancer.specialty_service.dto.DoctorDTO;
 
 import java.util.List;
 
-@FeignClient(name = "doctor-service", url = "http://localhost:8094/api/doctors")
+@FeignClient(name = "doctor-service", url = "${application.config.doctor-service-url}")
 public interface DoctorClient {
 
     @GetMapping("/search-by-specialty/{idSpecialty}")
