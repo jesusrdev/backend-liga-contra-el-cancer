@@ -2,6 +2,7 @@ package pe.org.ligacancer.doctor_service.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pe.org.ligacancer.doctor_service.client.SpecialtyClient;
 import pe.org.ligacancer.doctor_service.dto.DoctorCreateDTO;
 import pe.org.ligacancer.doctor_service.dto.SpecialtyDTO;
 import pe.org.ligacancer.doctor_service.http.response.DoctorDetailed;
@@ -16,6 +17,7 @@ import java.util.List;
 public class DoctorService implements IDoctorService {
 
     public final DoctorRepository doctorRepository;
+    public final SpecialtyClient specialtyClient;
 
     @Override
     public Doctor saveDoctor(DoctorCreateDTO doctorCreateDTO) {
@@ -36,10 +38,7 @@ public class DoctorService implements IDoctorService {
             var listDoctors = new ArrayList<DoctorDetailed>();
             for (var doctor : doctors) {
                 // TODO: Implement the specialty client
-                var specialty = SpecialtyDTO.builder()
-                        .id(doctor.getIdSpecialty())
-                        .description("specialty")
-                        .build();
+                var specialty = specialtyClient.findSpecialtyById(doctor.getIdSpecialty());
                 listDoctors.add(DoctorDetailed.builder()
                         .id(doctor.getId())
                         .name(doctor.getName())
