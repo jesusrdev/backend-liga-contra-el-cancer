@@ -2,7 +2,10 @@ package pe.org.ligacancer.patient_service.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pe.org.ligacancer.patient_service.client.AppointmentClient;
+import pe.org.ligacancer.patient_service.dto.AppointmentDTO;
 import pe.org.ligacancer.patient_service.dto.PatientCreateDTO;
+import pe.org.ligacancer.patient_service.http.response.AppointmentsByPatientResponse;
 import pe.org.ligacancer.patient_service.model.Patient;
 import pe.org.ligacancer.patient_service.repository.PatientRepository;
 
@@ -13,6 +16,7 @@ import java.util.List;
 public class PatientService implements IPatientService {
 
     private final PatientRepository patientRepository;
+    private final AppointmentClient appointmentClient;
 
 
     @Override
@@ -34,5 +38,20 @@ public class PatientService implements IPatientService {
     @Override
     public Patient findPatientById(int id) {
         return patientRepository.findById(id).orElseThrow();
+    }
+
+    @Override
+    public AppointmentsByPatientResponse findAppointmentsByPatientId(int idPatient) {
+        Patient patient = patientRepository.findById(idPatient).orElseThrow();
+        List<AppointmentDTO> appointments = appointmentClient.getAppointmentsByPatientId(idPatient);
+        return AppointmentsByPatientResponse.builder()
+                .id(patient.getId())
+                .name(patient.getName())
+                .lastName(patient.getLastName())
+                .address(patient.getAddress())
+                .phone(patient.getPhone())
+                .dni(patient.getDni())
+                .appointments(appointments)
+                .build();
     }
 }

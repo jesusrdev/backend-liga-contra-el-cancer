@@ -1,9 +1,8 @@
 package pe.org.ligacancer.patient_service.service;
 
 import pe.org.ligacancer.patient_service.dto.PatientCreateDTO;
+import pe.org.ligacancer.patient_service.http.response.AppointmentsByPatientResponse;
 import pe.org.ligacancer.patient_service.model.Patient;
-
-import java.util.List;
 
 public interface IPatientService {
 
@@ -12,4 +11,6 @@ public interface IPatientService {
     public Iterable<Patient> findAllPatients();
 
     public Patient findPatientById(int id);
+
+    public AppointmentsByPatientResponse findAppointmentsByPatientId(int idPatient);
 }

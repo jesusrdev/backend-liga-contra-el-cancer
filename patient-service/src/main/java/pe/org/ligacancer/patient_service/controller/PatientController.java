@@ -36,4 +36,14 @@ public class PatientController {
     public ResponseEntity<Patient> findPatientById(@PathVariable int id) {
         return ResponseEntity.ok(patientService.findPatientById(id));
     }
+
+    @GetMapping("/appointments/{idPatient}")
+    public ResponseEntity<?> findAppointmentsByPatientId(@PathVariable int idPatient){
+        try {
+            return ResponseEntity.ok(patientService.findAppointmentsByPatientId(idPatient));
+        }
+        catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }
