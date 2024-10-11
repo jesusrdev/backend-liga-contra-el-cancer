@@ -23,10 +23,6 @@ spring:
             uri: http://localhost:8091
             predicates:
               - Path=/api/patients/**
-          - id: patient-calendar
-            uri: http://localhost:8092
-            predicates:
-              - Path=/api/patient-calendar/**
           - id: appointments
             uri: http://localhost:8093
             predicates:

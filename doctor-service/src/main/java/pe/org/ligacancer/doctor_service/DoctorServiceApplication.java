@@ -7,7 +7,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableFeignClients
 @EnableDiscoveryClient
-@EnableFeignClients
 @SpringBootApplication
 public class DoctorServiceApplication {
 

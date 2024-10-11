@@ -12,13 +12,15 @@
         <module name="appointment-service" />
         <module name="discovery" />
         <module name="doctor-service" />
-        <module name="patient-calendar-service" />
         <module name="patient-service" />
         <module name="user-service" />
         <module name="doctor-calendar-service" />
         <module name="gateway" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="patient-calendar-service" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

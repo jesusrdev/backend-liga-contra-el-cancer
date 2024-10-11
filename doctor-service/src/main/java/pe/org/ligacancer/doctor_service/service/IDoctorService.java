@@ -1,6 +1,7 @@
 package pe.org.ligacancer.doctor_service.service;
 
 import pe.org.ligacancer.doctor_service.dto.DoctorCreateDTO;
+import pe.org.ligacancer.doctor_service.http.response.AppointmentsByDoctorResponse;
 import pe.org.ligacancer.doctor_service.http.response.CalendarByDoctorResponse;
 import pe.org.ligacancer.doctor_service.model.Doctor;
 
@@ -17,4 +18,6 @@ public interface IDoctorService {
     public List<Doctor> findAllBySpecialtyId(int idSpecialty);
 
     public CalendarByDoctorResponse findAllCalendarByDoctor(int idDoctor);
+
+    public AppointmentsByDoctorResponse findAppointmentsByDoctorId(int idDoctor);
 }

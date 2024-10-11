@@ -51,4 +51,9 @@ public class DoctorController {
         return ResponseEntity.ok(doctorService.findAllCalendarByDoctor(idDoctor));
     }
 
+    @GetMapping("/appointments/{idDoctor}")
+    public ResponseEntity<?> findAppointmentsByDoctorId(@PathVariable int idDoctor){
+        return ResponseEntity.ok(doctorService.findAppointmentsByDoctorId(idDoctor));
+    }
+
 }
