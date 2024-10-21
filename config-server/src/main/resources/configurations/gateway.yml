@@ -18,28 +18,24 @@ spring:
           - id: users
             uri: http://localhost:8090
             predicates:
-              - Path=/api/v1/users/**
+              - Path=/api/users/**
           - id: patients
             uri: http://localhost:8091
             predicates:
-              - Path=/api/v1/patients/**
-          - id: patient-calendar
-            uri: http://localhost:8092
-            predicates:
-              - Path=/api/v1/patient-calendar/**
+              - Path=/api/patients/**
           - id: appointments
             uri: http://localhost:8093
             predicates:
-              - Path=/api/v1/appointments/**
+              - Path=/api/appointments/**
           - id: doctors
             uri: http://localhost:8094
             predicates:
-              - Path=/api/v1/doctors/**
+              - Path=/api/doctors/**
           - id: doctor-calendar
             uri: http://localhost:8095
             predicates:
-              - Path=/api/v1/doctor-calendar/**
+              - Path=/api/doctor-calendar/**
           - id: specialties
             uri: http://localhost:8096
             predicates:
-              - Path=/api/v1/specialties/**
+              - Path=/api/specialties/**

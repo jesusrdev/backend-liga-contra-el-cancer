@@ -13,10 +13,14 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/patient-service
-    username: macbookpro
-    password:
+    username: root
+    password: admin123
   jpa:
     hibernate:
       ddl-auto: update
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect
+
+application:
+  config:
+    appointment-service-url: http://localhost:8093/api/appointments
